@@ -214,7 +214,12 @@ new function() {
 
         // http://www.w3.org/TR/SVG/struct.html#ImageElement
         image: function (node) {
-            var raster = new Raster(getValue(node, 'href', true));
+            var raster = new Raster(getValue(node, 'href', true)),
+                /**
+                 * bkt: added options for allowing callback for 
+                 * when the image has been loaded
+                 */
+                onRasterLoaded = options.onRasterLoaded;
             raster.on('load', function() {
                 var size = getSize(node, 'width', 'height');
                 this.setSize(size);
@@ -225,6 +230,8 @@ new function() {
                 var center = this._matrix._transformPoint(
                         getPoint(node, 'x', 'y').add(size.divide(2)));
                 this.translate(center);
+
+                if (onRasterLoaded) onRasterLoaded(this);
             });
             return raster;
         },

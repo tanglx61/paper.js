@@ -313,13 +313,33 @@ var Raster = Item.extend(/** @lends Raster# */{
                 paper = view._scope;
                 that.setImage(image);
                 that.emit('load');
-                view.update();
+                /**
+                 * bkt: disable the view.update() to significant boost load 
+                 * speed when lesson has lots of images
+                 */
+                //view.update();
             }
+
         }
 
 /*#*/ if (__options.environment == 'browser') {
             // src can be an URL or a DOM ID to load the image from
-            image = document.getElementById(src) || new Image();
+            //image = document.getElementById(src) || new Image();
+
+            /**
+             * bkt: add the ability to load image from AssetManager
+             */
+            image = document.getElementById(src);
+
+            if (!image){
+                image = bkt.AssetManager.get(src);
+                if (image){
+
+                } else{
+                    image = new Image();
+                }
+            }
+            
 
         // IE has naturalWidth / Height defined, but width / height set to 0
         // when the image is invisible in the document.

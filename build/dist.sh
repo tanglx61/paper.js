@@ -14,7 +14,8 @@ echo "Building paper.js"
 ./build.sh
 echo "Minifying paper.js"
 ./minify.sh
-echo "Building docs"
-./docs.sh
-echo "Zipping paperjs.zip"
-./zip.sh
+
+#echo "Building docs"
+#./docs.sh
+#echo "Zipping paperjs.zip"
+#./zip.sh
