@@ -213,8 +213,12 @@ new function() {
         radialgradient: importGradient,
 
         // http://www.w3.org/TR/SVG/struct.html#ImageElement
-        image: function (node) {
-            var raster = new Raster(getValue(node, 'href', true)),
+        image: function (node, type, options) {
+            var assetManager = options.assetManager,
+                //raster = new Raster(getValue(node, 'href', true), assetManager),
+                href = getValue(node, 'href', true),
+                img = assetManager.get(href);
+                raster = new Raster({_src:href, _img:img}),
                 /**
                  * bkt: added options for allowing callback for 
                  * when the image has been loaded

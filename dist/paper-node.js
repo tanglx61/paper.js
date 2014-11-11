@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Sun Nov 9 07:46:45 2014 -0800
+ * Date: Mon Nov 10 15:40:47 2014 -0500
  *
  ***
  *
@@ -4569,8 +4569,14 @@ var Raster = Item.extend({
 				position !== undefined && Point.read(arguments, 1))) {
 			if (typeof object === 'string') {
 				this.setSource(object);
-			} else {
+			}
+			else {
 				this.setImage(object);
+			}
+		}
+		else{
+			if (object._src){
+				this.setSource(object);
 			}
 		}
 		if (!this._size)
@@ -4693,7 +4699,13 @@ var Raster = Item.extend({
 
 	setSource: function(src) {
 		var that = this,
-			image;
+			image,
+			_img;
+
+		if (src._img){
+			_img = src._img;
+			src = src._src;
+		}
 
 		function loaded() {
 			var view = that.getView();
@@ -11573,8 +11585,11 @@ new function() {
 		lineargradient: importGradient,
 		radialgradient: importGradient,
 
-		image: function (node) {
-			var raster = new Raster(getValue(node, 'href', true)),
+		image: function (node, type, options) {
+			var assetManager = options.assetManager,
+				href = getValue(node, 'href', true),
+				img = assetManager.get(href);
+				raster = new Raster({_src:href, _img:img}),
 				onRasterLoaded = options.onRasterLoaded;
 			raster.on('load', function() {
 				var size = getSize(node, 'width', 'height');

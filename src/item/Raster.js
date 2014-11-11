@@ -80,14 +80,22 @@ var Raster = Item.extend(/** @lends Raster# */{
         // (object) and a point where it should be placed (point).
         // If _initialize can set properties through object literal, we're done.
         // Otherwise we need to check the type of object:
+        // 
         if (!this._initialize(object,
                 position !== undefined && Point.read(arguments, 1))) {
             if (typeof object === 'string') {
                 // Both data-urls and normal urls are supported here!
                 this.setSource(object);
-            } else {
+            } 
+            else {
                 // #setImage() handles both canvas and image types.
                 this.setImage(object);
+            }
+        } 
+        // bkt: accepts the object as an wrapper for the _src and _img
+        else{
+            if (object._src){
+                this.setSource(object);
             }
         }
         if (!this._size)
@@ -305,7 +313,13 @@ var Raster = Item.extend(/** @lends Raster# */{
 
     setSource: function(src) {
         var that = this,
-            image;
+            image,
+            _img;
+
+        if (src._img){
+            _img = src._img;
+            src = src._src;
+        }
 
         function loaded() {
             var view = that.getView();
@@ -332,7 +346,7 @@ var Raster = Item.extend(/** @lends Raster# */{
             image = document.getElementById(src);
 
             if (!image){
-                image = bkt.AssetManager.get(src);
+                image = _img;
                 if (image){
 
                 } else{
