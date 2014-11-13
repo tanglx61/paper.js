@@ -235,7 +235,7 @@ new function() {
                         getPoint(node, 'x', 'y').add(size.divide(2)));
                 this.translate(center);
 
-                if (onRasterLoaded) onRasterLoaded(this);
+                if (onRasterLoaded) onRasterLoaded.call(options.context, this);
             });
             return raster;
         },
@@ -614,7 +614,7 @@ new function() {
             // special attributes (e.g. inkscape:transform-center)
             var onImport = options.onImport;
             if (onImport)
-                item = onImport(node, item, options) || item;
+                item = onImport.call(options.context, node, item, options) || item;
             if (options.expandShapes && item instanceof Shape) {
                 item.remove();
                 item = item.toPath();

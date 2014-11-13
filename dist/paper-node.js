@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Tue Nov 11 14:29:32 2014 -0500
+ * Date: Wed Nov 12 19:15:10 2014 -0500
  *
  ***
  *
@@ -11598,7 +11598,7 @@ new function() {
 						getPoint(node, 'x', 'y').add(size.divide(2)));
 				this.translate(center);
 
-				if (onRasterLoaded) onRasterLoaded(this);
+				if (onRasterLoaded) onRasterLoaded.call(options.context, this);
 			});
 			return raster;
 		},
@@ -11864,7 +11864,7 @@ new function() {
 				item = applyAttributes(item, node, isRoot);
 			var onImport = options.onImport;
 			if (onImport)
-				item = onImport(node, item, options) || item;
+				item = onImport.call(options.context, node, item, options) || item;
 			if (options.expandShapes && item instanceof Shape) {
 				item.remove();
 				item = item.toPath();
