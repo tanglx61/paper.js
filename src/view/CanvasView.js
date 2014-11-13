@@ -108,7 +108,7 @@ var CanvasView = View.extend(/** @lends CanvasView# */{
      *
      * @function
      */
-    //bkt: added option for forcing update
+    //bkt: added option for forcing update when Game is active
     update: function(forceUpdate) {
         var project = this._project;
         if ((!project || !project._needsUpdate) && !forceUpdate)
@@ -118,7 +118,8 @@ var CanvasView = View.extend(/** @lends CanvasView# */{
         // http://jsperf.com/clearrect-vs-setting-width/7
         var ctx = this._context,
             size = this._viewSize;
-        ctx.clearRect(0, 0, size.width + 1, size.height + 1);
+        //only need to clear the context when not Game is not active (Game clears context for us already);
+        if (!forceUpdate) ctx.clearRect(0, 0, size.width + 1, size.height + 1);
         project.draw(ctx, this._matrix, this._pixelRatio);
         project._needsUpdate = false;
         return true;

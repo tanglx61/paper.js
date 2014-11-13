@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Wed Nov 12 19:15:10 2014 -0500
+ * Date: Thu Nov 13 02:15:46 2014 -0500
  *
  ***
  *
@@ -10524,7 +10524,7 @@ var CanvasView = View.extend({
 			return false;
 		var ctx = this._context,
 			size = this._viewSize;
-		ctx.clearRect(0, 0, size.width + 1, size.height + 1);
+		if (!forceUpdate) ctx.clearRect(0, 0, size.width + 1, size.height + 1);
 		project.draw(ctx, this._matrix, this._pixelRatio);
 		project._needsUpdate = false;
 		return true;
