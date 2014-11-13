@@ -108,9 +108,10 @@ var CanvasView = View.extend(/** @lends CanvasView# */{
      *
      * @function
      */
-    update: function() {
+    //bkt: added option for forcing update
+    update: function(forceUpdate) {
         var project = this._project;
-        if (!project || !project._needsUpdate)
+        if ((!project || !project._needsUpdate) && !forceUpdate)
             return false;
         // Initial tests conclude that clearing the canvas using clearRect
         // is always faster than setting canvas.width = canvas.width

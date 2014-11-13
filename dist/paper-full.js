@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Mon Nov 10 15:40:47 2014 -0500
+ * Date: Tue Nov 11 14:29:32 2014 -0500
  *
  ***
  *
@@ -10806,9 +10806,9 @@ var CanvasView = View.extend({
 		return width;
 	},
 
-	update: function() {
+	update: function(forceUpdate) {
 		var project = this._project;
-		if (!project || !project._needsUpdate)
+		if ((!project || !project._needsUpdate) && !forceUpdate)
 			return false;
 		var ctx = this._context,
 			size = this._viewSize;
