@@ -146,7 +146,11 @@ new function() {
             // Gradients are always wrapped in a Color object, so get the
             // gradient object from there.
             // TODO: Handle exception if there is no definition for this id.
-            gradient = definitions[id].getGradient();
+            //bkt: check for definition existence
+            var def = definitions[id];
+            if (def){
+                gradient = def.getGradient();   
+            }
         } else {
             var nodes = node.childNodes,
                 stops = [];

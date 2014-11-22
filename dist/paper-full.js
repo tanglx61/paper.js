@@ -9,7 +9,7 @@
  *
  * All rights reserved.
  *
- * Date: Thu Nov 13 02:15:46 2014 -0500
+ * Date: Thu Nov 13 13:18:09 2014 -0500
  *
  ***
  *
@@ -12202,7 +12202,10 @@ new function() {
 			isRadial = type === 'radialgradient',
 			gradient;
 		if (id) {
-			gradient = definitions[id].getGradient();
+			var def = definitions[id];
+			if (def){
+				gradient = def.getGradient();
+			}
 		} else {
 			var nodes = node.childNodes,
 				stops = [];
