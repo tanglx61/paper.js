@@ -229,7 +229,9 @@ var CanvasView = View.extend(/** @lends CanvasView# */{
                 }
                 if (!stopped && item && item === downItem) {
                     clickTime = Date.now();
-                    callEvent(this, dblClick && downItem.responds('doubleclick')
+                    //bkt123  这里改变了原本的代码，减少了一个条件。
+                    //callEvent(this, dblClick && downItem.responds('doubleclick')
+                    callEvent(this, dblClick
                             ? 'doubleclick' : 'click', event, downPoint, item);
                     dblClick = false;
                 }
